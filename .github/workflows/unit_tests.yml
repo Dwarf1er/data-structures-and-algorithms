@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  checkout_and_prepare:
+  prepare_and_run_tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,7 +19,7 @@ jobs:
       - name: 🐍 Install Python
         uses: actions/setup-python@v2
         with:
-          python-version: latest
+          python-version: 3.12.0
 
       - name: 📦 Install dependencies
         run: |
