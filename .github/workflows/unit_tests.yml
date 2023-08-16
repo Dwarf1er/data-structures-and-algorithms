@@ -42,4 +42,4 @@ jobs:
         run: python -m unittest discover ${{ env.WORKING_DIRECTORY }}
 
 env:
-  WORKING_DIRECTORY: ${{ steps.set_working_dir.outputs.WORKING_DIRECTORY }}
+  WORKING_DIRECTORY: ${{ steps.set_working_directory.outputs.WORKING_DIRECTORY }}
