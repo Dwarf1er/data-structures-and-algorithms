@@ -3,6 +3,33 @@ from unittest.mock import patch
 from data_structures.linked_list import Node, LinkedList
 
 class TestLinkedList(unittest.TestCase):
+    def test_prepend_empty_linked_list(self) -> None:
+        linked_list: LinkedList = LinkedList()
+        linked_list.prepend(1)
+
+        self.assertEqual(linked_list.length, 1, "LinkedList length is not 1 after prepend operation on empty LinkedList.")
+
+        values = []
+        pointer: Node = linked_list.head
+        while pointer is not None:
+            values.append(pointer.value)
+            pointer = pointer.next
+        self.assertEqual(values, [1], "LinkedList values don't match the expected values after prepend operation on empty LinkedList.")
+
+    def test_prepend_linked_list(self) -> None:
+        linked_list: LinkedList = LinkedList(2)
+        linked_list.append(3)
+        linked_list.prepend(1)
+
+        self.assertEqual(linked_list.length, 3, "LinkedList length doesn't match expected value after prepend operation on LinkedList.")
+
+        values = []
+        pointer: Node = linked_list.head
+        while pointer is not None:
+            values.append(pointer.value)
+            pointer = pointer.next
+        self.assertEqual(values, [1,2,3], "LinkedList values don't match the expected values after prepend operation on LinkedList.")
+
     def test_append_empty_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList()
         linked_list.append(1)
