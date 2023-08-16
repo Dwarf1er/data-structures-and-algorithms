@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  build:
+  checkout_and_prepare:
     runs-on: ubuntu-latest
 
     steps:
@@ -24,5 +24,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+  run_tests:
+    runs-on: ubuntu-latest
+    needs: checkout_and_prepare
+
+    steps:
       - name: 🧪 Run python unittest tests
         run: python -m unittest discover tests
