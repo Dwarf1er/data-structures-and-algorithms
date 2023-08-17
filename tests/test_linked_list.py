@@ -9,7 +9,7 @@ class TestLinkedList(unittest.TestCase):
 
         self.assertEqual(linked_list.length, 1, "LinkedList length is not 1 after prepend operation on empty LinkedList.")
 
-        values = []
+        values: list[int] = []
         pointer: Node = linked_list.head
         while pointer is not None:
             values.append(pointer.value)
@@ -23,7 +23,7 @@ class TestLinkedList(unittest.TestCase):
 
         self.assertEqual(linked_list.length, 3, "LinkedList length doesn't match expected value after prepend operation on LinkedList.")
 
-        values = []
+        values: list[int] = []
         pointer: Node = linked_list.head
         while pointer is not None:
             values.append(pointer.value)
@@ -36,7 +36,7 @@ class TestLinkedList(unittest.TestCase):
 
         self.assertEqual(linked_list.length, 1, "LinkedList length is not 1 after append operation on empty LinkedList.")
 
-        values = []
+        values: list[int] = []
         pointer: Node = linked_list.head
         while pointer is not None:
             values.append(pointer.value)
@@ -50,7 +50,7 @@ class TestLinkedList(unittest.TestCase):
 
         self.assertEqual(linked_list.length, 3, "LinkedList length doesn't match expected value after append operation on LinkedList.")
 
-        values = []
+        values: list[int] = []
         pointer: Node = linked_list.head
         while pointer is not None:
             values.append(pointer.value)
@@ -98,6 +98,25 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(linked_list.length, 2, "Length should be decremented after popping from a non-empty LinkedList.")
         self.assertEqual(linked_list.head.value, 2, "Head value should be updated after popping from a non-empty LinkedList.")
         self.assertEqual(linked_list.tail.value, 3, "Tail value should remain unchanged after popping from a non-empty LinkedList.")
+
+    def test_get_invalid_index(self):
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        invalid_indices: list[int] = [-1, 3]  # Indices out of bounds
+        for index in invalid_indices:
+            result: Node = linked_list.get(index)
+            self.assertIsNone(result, f"Index {index} should return None for LinkedList with length 3.")
+
+    def test_get_valid_index(self):
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        index_value_map: dict[int, int] = {0: 1, 1: 2, 2: 3}  # Valid indices and their corresponding values
+        for index, expected_value in index_value_map.items():
+            result: Node = linked_list.get(index)
+            self.assertIsNotNone(result, f"Index {index} should return a Node for LinkedList with length 3.")
+            self.assertEqual(result.value, expected_value, f"Value at index {index} should be {expected_value}.")
 
     def test_print_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList(1)
