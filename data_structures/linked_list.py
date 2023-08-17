@@ -64,7 +64,7 @@ class LinkedList:
                 self.tail = None
             return removed_node
         
-    def get(self, index) -> Node:
+    def get(self, index: int) -> Node:
         if index < 0 or index > self.length:
             return None
         else:
@@ -72,6 +72,13 @@ class LinkedList:
             for _ in range(index):
                 pointer = pointer.next
             return pointer
+        
+    def set(self, index: int, value) -> Node:
+        pointer: Node = self.get(index)
+        if pointer:
+            pointer.value = value
+            return True
+        return False
     
     def print_linked_list(self) -> None:
         pointer: Node = self.head

@@ -99,24 +99,43 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(linked_list.head.value, 2, "Head value should be updated after popping from a non-empty LinkedList.")
         self.assertEqual(linked_list.tail.value, 3, "Tail value should remain unchanged after popping from a non-empty LinkedList.")
 
-    def test_get_invalid_index(self):
+    def test_get_invalid_index(self) -> None:
         linked_list: LinkedList = LinkedList(1)
         linked_list.append(2)
         linked_list.append(3)
-        invalid_indices: list[int] = [-1, 3]  # Indices out of bounds
+        invalid_indices: list[int] = [-1, 3]
         for index in invalid_indices:
             result: Node = linked_list.get(index)
             self.assertIsNone(result, f"Index {index} should return None for LinkedList with length 3.")
 
-    def test_get_valid_index(self):
+    def test_get_valid_index(self) -> None:
         linked_list: LinkedList = LinkedList(1)
         linked_list.append(2)
         linked_list.append(3)
-        index_value_map: dict[int, int] = {0: 1, 1: 2, 2: 3}  # Valid indices and their corresponding values
+        index_value_map: dict[int, int] = {0: 1, 1: 2, 2: 3}
         for index, expected_value in index_value_map.items():
             result: Node = linked_list.get(index)
             self.assertIsNotNone(result, f"Index {index} should return a Node for LinkedList with length 3.")
             self.assertEqual(result.value, expected_value, f"Value at index {index} should be {expected_value}.")
+
+    def test_set_invalid_index(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        invalid_indices: list[int] = [-1, 3]
+        for index in invalid_indices:
+            result: bool = linked_list.set(index, 99)
+            self.assertFalse(result, f"Setting value at index {index} should return False for LinkedList with length 3.")
+
+    def test_set_valid_index(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        valid_indices: list[int] = [0, 1, 2]
+        for index in valid_indices:
+            result: bool = linked_list.set(index, 99)
+            self.assertTrue(result, f"Setting value at index {index} should return True for LinkedList with length 3.")
+            self.assertEqual(linked_list.get(index).value, 99, f"Value at index {index} should be updated to 99.")
 
     def test_print_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList(1)
