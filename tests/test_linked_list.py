@@ -79,6 +79,26 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(linked_list.length, 2, "LinkedList length doesn't match the expected value after pop operation on LinkedList.")
         self.assertEqual(removed_node.value, 3, "Removed node value doesn't match the expected value after pop operation on LinkedList.")
 
+    def test_pop_first_empty_linked_list(self) -> None:
+        linked_list: LinkedList = LinkedList()
+        removed_node: Node = linked_list.pop_first()
+
+        self.assertIsNone(removed_node, "Should return None when popping from an empty LinkedList.")
+        self.assertEqual(linked_list.length, 0, "Length should be 0 after popping from an empty LinkedList.")
+        self.assertIsNone(linked_list.head, "Head should be None after popping from an empty LinkedList.")
+        self.assertIsNone(linked_list.tail, "Tail should be None after popping from an empty LinkedList.")
+
+    def test_pop_first_linked_list(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        removed_node: Node = linked_list.pop_first()
+
+        self.assertEqual(removed_node.value, 1, "Value of the removed node should be 1.")
+        self.assertEqual(linked_list.length, 2, "Length should be decremented after popping from a non-empty LinkedList.")
+        self.assertEqual(linked_list.head.value, 2, "Head value should be updated after popping from a non-empty LinkedList.")
+        self.assertEqual(linked_list.tail.value, 3, "Tail value should remain unchanged after popping from a non-empty LinkedList.")
+
     def test_print_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList(1)
         linked_list.head.next = Node(2)

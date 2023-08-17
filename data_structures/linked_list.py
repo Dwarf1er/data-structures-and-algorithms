@@ -52,6 +52,18 @@ class LinkedList:
                 self.tail = None
             return removed_node
     
+    def pop_first(self) -> Node:
+        if self.length == 0:
+            return None
+        else:
+            removed_node: Node = self.head
+            self.head = self.head.next
+            removed_node.next = None
+            self.length -= 1
+            if self.length == 0:
+                self.tail = None
+            return removed_node
+    
     def print_linked_list(self) -> None:
         pointer: Node = self.head
         while pointer is not None:
