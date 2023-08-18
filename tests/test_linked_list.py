@@ -137,10 +137,44 @@ class TestLinkedList(unittest.TestCase):
             self.assertTrue(result, f"Setting value at index {index} should return True for LinkedList with length 3.")
             self.assertEqual(linked_list.get(index).value, 99, f"Value at index {index} should be updated to 99.")
 
+    def test_insert_invalid_index(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        invalid_indices: list[int] = [-1, 4]
+        for index in invalid_indices:
+            result: bool = linked_list.insert(index, 99)
+            self.assertFalse(result, f"Insert value at index {index} should return False for LinkedList with length 3.")
+
+    def test_insert_at_first_node(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        result: bool = linked_list.insert(0, 99)
+        self.assertTrue(result, "Inserting at the first node should return True.")
+        self.assertEqual(linked_list.get(0).value, 99, "Value at the first node should be 99.")
+        self.assertEqual(linked_list.get(1).value, 1, "Value at the second node should remain unchanged.")
+
+    def test_insert_at_last_node(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        result: bool = linked_list.insert(2, 99)
+        self.assertTrue(result, "Inserting at the last node should return True.")
+        self.assertEqual(linked_list.get(1).value, 2, "Value at the second-to-last node should be 2.")
+        self.assertEqual(linked_list.get(2).value, 99, "Value at the last node should be 99.")
+
+    def test_insert_at_middle_node(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        result: bool = linked_list.insert(1, 99)
+        self.assertTrue(result, "Inserting at a middle node should return True.")
+        self.assertEqual(linked_list.get(1).value, 99, "Value at second node should be 99.")
+        self.assertEqual(linked_list.get(2).value, 2, "Value at third node should be 2.")
+
     def test_print_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList(1)
-        linked_list.head.next = Node(2)
-        linked_list.head.next.next = Node(3)
+        linked_list.append(2)
+        linked_list.append(3)
         
         with patch("builtins.print") as mock_print:
             linked_list.print_linked_list()

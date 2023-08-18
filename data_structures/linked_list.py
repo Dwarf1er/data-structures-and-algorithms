@@ -65,7 +65,7 @@ class LinkedList:
             return removed_node
         
     def get(self, index: int) -> Node:
-        if index < 0 or index > self.length:
+        if index < 0 or index >= self.length:
             return None
         else:
             pointer: Node = self.head
@@ -79,6 +79,22 @@ class LinkedList:
             pointer.value = value
             return True
         return False
+    
+    def insert(self, index: int, value):
+        new_node: Node = Node(value)
+        if index < 0 or index > self.length:
+            return False
+        elif index == 0:
+            return self.prepend(value)
+        elif index == self.length:
+            return self.append(value)
+        else:
+            previous_node: Node = self.get(index - 1)
+            next_node: Node = previous_node.next
+            previous_node.next = new_node
+            new_node.next = next_node
+            self.length += 1
+            return True
     
     def print_linked_list(self) -> None:
         pointer: Node = self.head
