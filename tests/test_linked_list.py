@@ -171,6 +171,42 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(linked_list.get(1).value, 99, "Value at second node should be 99.")
         self.assertEqual(linked_list.get(2).value, 2, "Value at third node should be 2.")
 
+    def test_remove_invalid_index(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        invalid_indices: list[int] = [-1, 4]
+        for index in invalid_indices:
+            result: Node = linked_list.remove(index)
+            self.assertIsNone(result, f"Removing at index {index} should return None for LinkedList with length 3.")
+
+    def test_remove_first_node(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        result: Node = linked_list.remove(0)
+        self.assertEqual(result.value, 1, "Removed value should be 1.")
+        self.assertEqual(linked_list.length, 2, "Length should be decremented after removing the first node.")
+        self.assertEqual(linked_list.get(0).value, 2, "Value at the first node should be updated.")
+
+    def test_remove_last_node(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        result: Node = linked_list.remove(2)
+        self.assertEqual(result.value, 3, "Removed value should be 3.")
+        self.assertEqual(linked_list.length, 2, "Length should be decremented after removing the last node.")
+        self.assertEqual(linked_list.get(1).value, 2, "Value at the second-to-last node should remain the same.")
+
+    def test_remove_middle_node(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        result: Node = linked_list.remove(1)
+        self.assertEqual(result.value, 2, "Removed value should be 2.")
+        self.assertEqual(linked_list.length, 2, "Length should be decremented after removing a middle node.")
+        self.assertEqual(linked_list.get(1).value, 3, "Value at the second node should be updated.") 
+
     def test_print_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList(1)
         linked_list.append(2)

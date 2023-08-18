@@ -95,6 +95,22 @@ class LinkedList:
             new_node.next = next_node
             self.length += 1
             return True
+        
+    def remove(self, index: int) -> Node:
+        if index < 0 or index >= self.length:
+            return None
+        elif index == 0:
+            return self.pop_first()
+        elif index == (self.length - 1):
+            return self.pop()
+        else:
+            previous_node = self.get(index - 1)
+            removed_node = self.get(index)
+            next_node = self.get(index + 1)
+            previous_node.next = next_node
+            removed_node.next = None
+            self.length -= 1
+            return removed_node
     
     def print_linked_list(self) -> None:
         pointer: Node = self.head
