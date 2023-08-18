@@ -105,12 +105,24 @@ class LinkedList:
             return self.pop()
         else:
             previous_node = self.get(index - 1)
-            removed_node = self.get(index)
-            next_node = self.get(index + 1)
-            previous_node.next = next_node
+            removed_node = previous_node.next
+            previous_node.next = removed_node.next
             removed_node.next = None
             self.length -= 1
             return removed_node
+        
+    def reverse(self) -> None:
+        pointer: Node = self.head
+        self.head = self.tail
+        self.tail = pointer
+        
+        previous_node: Node = None
+        next_node: Node
+        for _ in range(self.length):
+            next_node = pointer.next
+            pointer.next = previous_node
+            previous_node = pointer
+            pointer = next_node
     
     def print_linked_list(self) -> None:
         pointer: Node = self.head

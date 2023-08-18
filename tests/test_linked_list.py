@@ -206,6 +206,31 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(result.value, 2, "Removed value should be 2.")
         self.assertEqual(linked_list.length, 2, "Length should be decremented after removing a middle node.")
         self.assertEqual(linked_list.get(1).value, 3, "Value at the second node should be updated.") 
+    
+    def test_reverse_empty_linked_list(self):
+        linked_list: LinkedList = LinkedList()
+        linked_list.reverse()
+        self.assertIsNone(linked_list.head, "Reversing an empty LinkedList should result in a None head.")
+        self.assertIsNone(linked_list.tail, "Reversing an empty LinkedList should result in a None tail.")
+        self.assertEqual(linked_list.length, 0, "Length of an empty LinkedList should remain 0 after reversing.")
+
+    def test_reverse_one_node_linked_list(self):
+        linked_list: LinkedList = LinkedList(1)
+        linked_list.reverse()
+        self.assertEqual(linked_list.head.value, 1, "Head value of a LinkedList with one node should remain unchanged.")
+        self.assertEqual(linked_list.tail.value, 1, "Tail value of a LinkedList with one node should remain unchanged.")
+        self.assertEqual(linked_list.length, 1, "Length of a LinkedList with one node should remain 1 after reversing.")
+
+    def test_reverse_linked_list(self):
+        linked_list: LinkedList = LinkedList()
+        linked_list.append(1)
+        linked_list.append(2)
+        linked_list.append(3)
+        linked_list.reverse()
+        self.assertEqual(linked_list.head.value, 3, "Head value should be updated to the last node's value after reversing.")
+        self.assertEqual(linked_list.tail.value, 1, "Tail value should be updated to the first node's value after reversing.")
+        self.assertEqual(linked_list.length, 3, "Length of a LinkedList with multiple nodes should remain unchanged after reversing.")
+
 
     def test_print_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList(1)
