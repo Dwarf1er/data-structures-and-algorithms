@@ -3,6 +3,7 @@ class Node:
         self.value = value
         self.next = None
 
+
 class LinkedList:
     def __init__(self, value=None) -> None:
         if value is not None:
@@ -51,7 +52,7 @@ class LinkedList:
                 self.head = None
                 self.tail = None
             return removed_node
-    
+
     def pop_first(self) -> Node:
         if self.length == 0:
             return None
@@ -63,7 +64,7 @@ class LinkedList:
             if self.length == 0:
                 self.tail = None
             return removed_node
-        
+
     def get(self, index: int) -> Node:
         if index < 0 or index >= self.length:
             return None
@@ -72,14 +73,14 @@ class LinkedList:
             for _ in range(index):
                 pointer = pointer.next
             return pointer
-        
+
     def set(self, index: int, value) -> Node:
         pointer: Node = self.get(index)
         if pointer:
             pointer.value = value
             return True
         return False
-    
+
     def insert(self, index: int, value):
         new_node: Node = Node(value)
         if index < 0 or index > self.length:
@@ -95,7 +96,7 @@ class LinkedList:
             new_node.next = next_node
             self.length += 1
             return True
-        
+
     def remove(self, index: int) -> Node:
         if index < 0 or index >= self.length:
             return None
@@ -110,12 +111,12 @@ class LinkedList:
             removed_node.next = None
             self.length -= 1
             return removed_node
-        
+
     def reverse(self) -> None:
         pointer: Node = self.head
         self.head = self.tail
         self.tail = pointer
-        
+
         previous_node: Node = None
         next_node: Node
         for _ in range(self.length):
@@ -123,9 +124,10 @@ class LinkedList:
             pointer.next = previous_node
             previous_node = pointer
             pointer = next_node
-    
+
     def print_linked_list(self) -> None:
         pointer: Node = self.head
         while pointer is not None:
             print(pointer.value)
             pointer = pointer.next
+
