@@ -125,9 +125,8 @@ class LinkedList:
             previous_node = pointer
             pointer = next_node
 
-    def print_linked_list(self) -> None:
+    def print(self) -> None:
         pointer: Node = self.head
         while pointer is not None:
             print(pointer.value)
             pointer = pointer.next
-

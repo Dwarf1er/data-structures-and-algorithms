@@ -493,7 +493,7 @@ class TestLinkedList(unittest.TestCase):
         linked_list.append(3)
 
         with patch("builtins.print") as mock_print:
-            linked_list.print_linked_list()
+            linked_list.print()
             expected_calls: list[unittest.mock.Call] = [
                 unittest.mock.call(1),
                 unittest.mock.call(2),
