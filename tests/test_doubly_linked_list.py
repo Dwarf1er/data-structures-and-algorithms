@@ -4,6 +4,120 @@ from data_structures.doubly_linked_list import Node, DoublyLinkedList
 
 
 class TestDoublyLinkedList(unittest.TestCase):
+    def test_pop_first_empty_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList()
+
+        removed_node: Node = doubly_linked_list.pop_first()
+        self.assertEqual(
+            removed_node,
+            None,
+            "Removed node should be None for an empty DoublyLinkedList"
+        )
+        self.assertEqual(
+            doubly_linked_list.length,
+            0,
+            "Length of empty DoublyLinkedList should be 0"
+        )
+        self.assertEqual(
+            doubly_linked_list.head,
+            None,
+            "Head of empty should be None for an empty DoublyLinkedList"
+        )
+        self.assertEqual(
+            doubly_linked_list.tail,
+            None,
+            "Tail of empty should be None for an empty DoublyLinkedList"
+        )
+
+    def test_pop_first_single_node_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+
+        removed_node: Node = doubly_linked_list.pop_first()
+        self.assertEqual(
+            removed_node.value,
+            1,
+            "Removed node value should be 1"
+        )
+        self.assertEqual(
+            doubly_linked_list.length,
+            0,
+            "Length of single node DoublyLinkedList should be 0"
+        )
+        self.assertEqual(
+            doubly_linked_list.head,
+            None,
+            "Head of empty should be None for a single node DoublyLinkedList"
+        )
+        self.assertEqual(
+            doubly_linked_list.tail,
+            None,
+            "Tail of empty should be None for a single node DoublyLinkedList"
+        )
+
+    def test_pop_first_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        doubly_linked_list.append(2)
+
+        removed_node: Node = doubly_linked_list.pop_first()
+        self.assertEqual(
+            removed_node.value,
+            1,
+            "Removed node value should be 1"
+        )
+        self.assertEqual(
+            doubly_linked_list.length,
+            1,
+            "Length of DoublyLinkedList should be 1"
+        )
+        self.assertEqual(
+            doubly_linked_list.head.value,
+            2,
+            "Head value of DoublyLinkedList should be 2"
+        )
+        self.assertEqual(
+            doubly_linked_list.tail.value,
+            2,
+            "Tail value of DoublyLinkedList should be 2"
+        )
+
+    def test_prepend_empty_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList()
+        doubly_linked_list.prepend(1)
+        self.assertEqual(
+            doubly_linked_list.length,
+            1,
+            "DoublyLinkedList length didn't increase"
+        )
+        self.assertEqual(
+            doubly_linked_list.head.value,
+            1,
+            "DoublyLinkedList head value is not the value of the new node"
+        )
+        self.assertEqual(
+            doubly_linked_list.tail.value,
+            1,
+            "DoublyLinkedList tail value is not the value of the new node"
+        )
+
+    def test_prepend_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(2)
+        doubly_linked_list.prepend(1)
+        self.assertEqual(
+            doubly_linked_list.length,
+            2,
+            "DoublyLinkedList length didn't increase"
+        )
+        self.assertEqual(
+            doubly_linked_list.head.value,
+            1,
+            "DoublyLinkedList head value is not the value of the new node"
+        )
+        self.assertEqual(
+            doubly_linked_list.tail.value,
+            2,
+            "DoublyLinkedList tail value is not the value of the last node"
+        )
+
     def test_pop_empty_doubly_linked_list(self) -> None:
         doubly_linked_list: DoublyLinkedList = DoublyLinkedList()
         removed_node: Node = doubly_linked_list.pop()
