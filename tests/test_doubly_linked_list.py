@@ -4,6 +4,166 @@ from data_structures.doubly_linked_list import Node, DoublyLinkedList
 
 
 class TestDoublyLinkedList(unittest.TestCase):
+    def test_constructor_empty_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList()
+        self.assertEqual(
+            doubly_linked_list.length,
+            0,
+            "Expected an empty DoublyLinkedList to have length 0."
+        )
+        self.assertIsNone(
+            doubly_linked_list.head,
+            "Expected an empty DoublyLinkedList to have a None head."
+        )
+        self.assertIsNone(
+            doubly_linked_list.tail,
+            "Expected an empty DoublyLinkedList to have a None tail."
+        )
+
+    def test_constructor_with_initial_value(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        self.assertEqual(
+            doubly_linked_list.length,
+            1,
+            "Expected a DoublyLinkedList with initial value to have length 1."
+        )
+        self.assertEqual(
+            doubly_linked_list.head.value,
+            1,
+            "Expected the head value to match the initial value."
+        )
+        self.assertEqual(
+            doubly_linked_list.tail.value,
+            1,
+            "Expected the tail value to match the initial value."
+        )
+
+    def test_get_invalid_index_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        result: Node = doubly_linked_list.get(-1)
+        self.assertEqual(
+            result,
+            None,
+            "Getting a node at index < 0 should return None"
+        )
+
+        result = doubly_linked_list.get(2)
+        self.assertEqual(
+            result,
+            None,
+            "Getting a node at index >= length should return None"
+        )
+
+    def test_get_first_node_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        doubly_linked_list.append(2)
+
+        result: Node = doubly_linked_list.get(0)
+        self.assertEqual(
+            result.value,
+            1,
+            "Getting node at index 0 should return 1"
+        )
+
+    def test_get_middle_node_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        doubly_linked_list.append(2)
+        doubly_linked_list.append(3)
+
+        result: Node = doubly_linked_list.get(1)
+        self.assertEqual(
+            result.value,
+            2,
+            "Getting node at middle index should return 2"
+        )
+
+    def test_get_last_node_doubly_linked_list(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        doubly_linked_list.append(2)
+        doubly_linked_list.append(3)
+
+        result: Node = doubly_linked_list.get(2)
+        self.assertEqual(
+            result.value,
+            3,
+            "Getting node at last index should return 3"
+        )
+
+    def test_set_value_invalid_index(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        doubly_linked_list.append(2)
+        doubly_linked_list.append(3)
+        invalid_indices: list[int] = [-1, 3]
+        for index in invalid_indices:
+            result: bool = doubly_linked_list.set_value(index, 99)
+            self.assertFalse(
+                result,
+                f"Setting value at index {index} should return "
+                "False for DoublyLinkedList with length 3."
+            )
+
+    def test_set_value_valid_index(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        doubly_linked_list.append(2)
+        doubly_linked_list.append(3)
+        valid_indices: list[int] = [0, 1, 2]
+        for index in valid_indices:
+            result: bool = doubly_linked_list.set_value(index, 99)
+            self.assertTrue(
+                result,
+                f"Setting value at index {index} should return "
+                "True for DoublyLinkedList with length 3."
+            )
+            self.assertEqual(
+                doubly_linked_list.get(index).value,
+                99,
+                f"Value at index {index} should be updated to 99."
+            )
+
+    def test_insert_invalid_index(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+
+        result = doubly_linked_list.insert(-1, 0)
+        self.assertFalse(
+            result,
+            "Value should not be inserted out of bounds"
+        )
+
+        result = doubly_linked_list.insert(doubly_linked_list.length + 1, 0)
+        self.assertFalse(
+            result,
+            "Value should not be inserted out of bounds"
+        )
+
+    def test_insert_first_node(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+
+        result = doubly_linked_list.insert(0, 0)
+        self.assertTrue(
+            result,
+            "Value should be inserted at index 0"
+        )
+        self.assertEqual(
+            doubly_linked_list.head.value,
+            0,
+            "Value at index 0 should be 0"
+        )
+
+    def test_insert(self) -> None:
+        doubly_linked_list: DoublyLinkedList = DoublyLinkedList(1)
+        doubly_linked_list.append(3)
+
+        result = doubly_linked_list.insert(1, 2)
+        self.assertTrue(
+            result,
+            "Value should be inserted at index 1"
+        )
+        self.assertEqual(
+            doubly_linked_list.get(1).value,
+            2,
+            "Value at index 1 should be 2"
+        )
+
     def test_pop_first_empty_doubly_linked_list(self) -> None:
         doubly_linked_list: DoublyLinkedList = DoublyLinkedList()
 

@@ -4,6 +4,40 @@ from data_structures.linked_list import Node, LinkedList
 
 
 class TestLinkedList(unittest.TestCase):
+    def test_constructor_empty_linked_list(self) -> None:
+        linked_list: LinkedList = LinkedList()
+        self.assertEqual(
+            linked_list.length,
+            0,
+            "Expected an empty LinkedList to have length 0."
+        )
+        self.assertIsNone(
+            linked_list.head,
+            "Expected an empty LinkedList to have a None head."
+        )
+        self.assertIsNone(
+            linked_list.tail,
+            "Expected an empty LinkedList to have a None tail."
+        )
+
+    def test_constructor_with_initial_value(self) -> None:
+        linked_list: LinkedList = LinkedList(1)
+        self.assertEqual(
+            linked_list.length,
+            1,
+            "Expected a LinkedList with initial value to have length 1."
+        )
+        self.assertEqual(
+            linked_list.head.value,
+            1,
+            "Expected the head value to match the initial value."
+        )
+        self.assertEqual(
+            linked_list.tail.value,
+            1,
+            "Expected the tail value to match the initial value."
+        )
+
     def test_prepend_empty_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList()
         linked_list.prepend(1)
@@ -11,22 +45,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.length,
             1,
-            "LinkedList length is not 1 "
-            "after prepend operation on "
-            "empty LinkedList."
+            "Expected the length of the LinkedList to be 1 after prepend operation."
         )
-
-        values: list[int] = []
-        pointer: Node = linked_list.head
-        while pointer is not None:
-            values.append(pointer.value)
-            pointer = pointer.next
         self.assertEqual(
-            values,
-            [1],
-            "LinkedList values don't match "
-            "the expected values after prepend "
-            "operation on empty LinkedList."
+            linked_list.head.value,
+            1,
+            "Expected the head value to match the value added with prepend."
+        )
+        self.assertEqual(
+            linked_list.tail.value,
+            1,
+            "Expected the tail value to match the value added with prepend."
         )
 
     def test_prepend_linked_list(self) -> None:
@@ -37,22 +66,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.length,
             3,
-            "LinkedList length doesn't match "
-            "expected value after prepend "
-            "operation on LinkedList."
+            "Expected the length of the LinkedList to be 3 after prepend operation."
         )
-
-        values: list[int] = []
-        pointer: Node = linked_list.head
-        while pointer is not None:
-            values.append(pointer.value)
-            pointer = pointer.next
         self.assertEqual(
-            values,
-            [1, 2, 3],
-            "LinkedList values don't match "
-            "the expected values after prepend "
-            "operation on LinkedList."
+            linked_list.head.value,
+            1,
+            "Expected the head value to match the value added with prepend."
+        )
+        self.assertEqual(
+            linked_list.tail.value,
+            3,
+            "Expected the tail value to match the previous tail value."
         )
 
     def test_append_empty_linked_list(self) -> None:
@@ -62,21 +86,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.length,
             1,
-            "LinkedList length is not 1 after append "
-            "operation on empty LinkedList."
+            "Expected the length of the LinkedList to be 1 after append operation."
         )
-
-        values: list[int] = []
-        pointer: Node = linked_list.head
-        while pointer is not None:
-            values.append(pointer.value)
-            pointer = pointer.next
         self.assertEqual(
-            values,
-            [1],
-            "LinkedList values don't match "
-            "the expected values after append "
-            "operation on empty LinkedList."
+            linked_list.head.value,
+            1,
+            "Expected the head value to match the value added with append."
+        )
+        self.assertEqual(
+            linked_list.tail.value,
+            1,
+            "Expected the tail value to match the value added with append."
         )
 
     def test_append_linked_list(self) -> None:
@@ -87,22 +107,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.length,
             3,
-            "LinkedList length doesn't match "
-            "expected value after append "
-            "operation on LinkedList."
+            "Expected the length of the LinkedList to be 3 after append operation."
         )
-
-        values: list[int] = []
-        pointer: Node = linked_list.head
-        while pointer is not None:
-            values.append(pointer.value)
-            pointer = pointer.next
         self.assertEqual(
-            values,
-            [1, 2, 3],
-            "LinkedList values don't match "
-            "the expected values after append "
-            "operation on LinkedList."
+            linked_list.head.value,
+            1,
+            "Expected the head value to match the previous head value."
+        )
+        self.assertEqual(
+            linked_list.tail.value,
+            3,
+            "Expected the tail value to match the value added with append."
         )
 
     def test_pop_empty_linked_list(self) -> None:
@@ -111,13 +126,11 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.length,
             0,
-            "LinkedList length is not 0 "
-            "after pop operation on empty LinkedList."
+            "Expected the length to be 0 after pop operation on empty LinkedList."
         )
         self.assertIsNone(
             removed_node,
-            "Removed node value is not None "
-            "after pop operation on empty LinkedList."
+            "Expected removed node to be None after pop operation on empty LinkedList."
         )
 
     def test_pop_single_node_linked_list(self) -> None:
@@ -126,23 +139,19 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.length,
             0,
-            "LinkedList length is not 0 after "
-            "pop operation on single node LinkedList."
+            "Expected the length to be 0 after pop operation on single node LinkedList."
         )
         self.assertIsNone(
             linked_list.head,
-            "LinkedList head is not None after "
-            "pop operation on single node LinkedList."
+            "Expected head to be None after pop operation on single node LinkedList."
         )
         self.assertIsNone(
             linked_list.tail,
-            "LinkedList tail is not None after "
-            "pop operation on single node LinkedList."
+            "Expected tail to be None after pop operation on single node LinkedList."
         )
         self.assertIsNotNone(
             removed_node,
-            "Removed node value doesn't match the "
-            "expected value after pop operation on single node LinkedList."
+            "Expected removed node to have a value after pop operation on single node LinkedList."
         )
 
     def test_pop_linked_list(self) -> None:
@@ -153,36 +162,33 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.length,
             2,
-            "LinkedList length doesn't match the "
-            "expected value after pop operation on LinkedList."
+            "Expected the length to be 2 after pop operation on LinkedList."
         )
         self.assertEqual(
             removed_node.value,
             3,
-            "Removed node value doesn't match the "
-            "expected value after pop operation on LinkedList."
+            "Expected removed node value to be 3 after pop operation on LinkedList."
         )
 
     def test_pop_first_empty_linked_list(self) -> None:
         linked_list: LinkedList = LinkedList()
         removed_node: Node = linked_list.pop_first()
-
         self.assertIsNone(
             removed_node,
-            "Should return None when popping from an empty LinkedList."
+            "Expected None when popping from an empty LinkedList."
         )
         self.assertEqual(
             linked_list.length,
             0,
-            "Length should be 0 after popping from an empty LinkedList."
+            "Expected length to be 0 after popping from an empty LinkedList."
         )
         self.assertIsNone(
             linked_list.head,
-            "Head should be None after popping from an empty LinkedList."
+            "Expected head to be None after popping from an empty LinkedList."
         )
         self.assertIsNone(
             linked_list.tail,
-            "Tail should be None after popping from an empty LinkedList."
+            "Expected tail to be None after popping from an empty LinkedList."
         )
 
     def test_pop_first_linked_list(self) -> None:
@@ -194,25 +200,22 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             removed_node.value,
             1,
-            "Value of the removed node should be 1."
+            "Expected value of the removed node to be 1."
         )
         self.assertEqual(
             linked_list.length,
             2,
-            "Length should be decremented after "
-            "popping from a non-empty LinkedList."
+            "Expected length to be decremented after popping from a non-empty LinkedList."
         )
         self.assertEqual(
             linked_list.head.value,
             2,
-            "Head value should be updated after "
-            "popping from a non-empty LinkedList."
+            "Expected head value to be updated after popping from a non-empty LinkedList."
         )
         self.assertEqual(
             linked_list.tail.value,
             3,
-            "Tail value should remain unchanged after "
-            "popping from a non-empty LinkedList."
+            "Expected tail value to remain unchanged after popping from a non-empty LinkedList."
         )
 
     def test_get_invalid_index(self) -> None:
@@ -224,8 +227,7 @@ class TestLinkedList(unittest.TestCase):
             result: Node = linked_list.get(index)
             self.assertIsNone(
                 result,
-                f"Index {index} should return None "
-                "for LinkedList with length 3."
+                f"Expected index {index} to return None for LinkedList with length 3."
             )
 
     def test_get_valid_index(self) -> None:
@@ -237,44 +239,41 @@ class TestLinkedList(unittest.TestCase):
             result: Node = linked_list.get(index)
             self.assertIsNotNone(
                 result,
-                f"Index {index} should return a Node "
-                "for LinkedList with length 3."
+                f"Expected index {index} to return a Node for LinkedList with length 3."
             )
             self.assertEqual(
                 result.value,
                 expected_value,
-                f"Value at index {index} should be {expected_value}."
+                f"Expected value at index {index} to be {expected_value}."
             )
 
-    def test_set_invalid_index(self) -> None:
+    def test_set_value_invalid_index(self) -> None:
         linked_list: LinkedList = LinkedList(1)
         linked_list.append(2)
         linked_list.append(3)
         invalid_indices: list[int] = [-1, 3]
         for index in invalid_indices:
-            result: bool = linked_list.set(index, 99)
+            result: bool = linked_list.set_value(index, 99)
             self.assertFalse(
                 result,
-                f"Setting value at index {index} should return "
-                "False for LinkedList with length 3."
+                f"Expected setting value at index {index} to return False for LinkedList with length 3."
             )
 
-    def test_set_valid_index(self) -> None:
+    def test_set_value_valid_index(self) -> None:
         linked_list: LinkedList = LinkedList(1)
         linked_list.append(2)
         linked_list.append(3)
         valid_indices: list[int] = [0, 1, 2]
         for index in valid_indices:
-            result: bool = linked_list.set(index, 99)
+            result: bool = linked_list.set_value(index, 99)
             self.assertTrue(
                 result,
-                f"Setting value at index {index} should return "
-                "True for LinkedList with length 3."
+                f"Expected setting value at index {index} to return True for LinkedList with length 3."
             )
             self.assertEqual(
                 linked_list.get(index).value,
                 99,
-                f"Value at index {index} should be updated to 99."
+                f"Expected value at index {index} to be updated to 99."
             )
 
     def test_insert_invalid_index(self) -> None:
@@ -286,8 +285,7 @@ class TestLinkedList(unittest.TestCase):
             result: bool = linked_list.insert(index, 99)
             self.assertFalse(
                 result,
-                f"Insert value at index {index} should return "
-                "False for LinkedList with length 3."
+                f"Expected inserting value at index {index} to return False for LinkedList with length 3."
             )
 
     def test_insert_at_first_node(self) -> None:
@@ -296,17 +294,17 @@ class TestLinkedList(unittest.TestCase):
         result: bool = linked_list.insert(0, 99)
         self.assertTrue(
             result,
-            "Inserting at the first node should return True."
+            "Expected inserting at the first node to return True."
         )
         self.assertEqual(
             linked_list.get(0).value,
             99,
-            "Value at the first node should be 99."
+            "Expected value at the first node to be 99."
         )
         self.assertEqual(
             linked_list.get(1).value,
             1,
-            "Value at the second node should remain unchanged."
+            "Expected value at the second node to remain unchanged."
         )
 
     def test_insert_at_last_node(self) -> None:
@@ -315,17 +313,17 @@ class TestLinkedList(unittest.TestCase):
         result: bool = linked_list.insert(2, 99)
         self.assertTrue(
             result,
-            "Inserting at the last node should return True."
+            "Expected inserting at the last node to return True."
         )
         self.assertEqual(
             linked_list.get(1).value,
             2,
-            "Value at the second-to-last node should be 2."
+            "Expected value at the second-to-last node to be 2."
         )
         self.assertEqual(
             linked_list.get(2).value,
             99,
-            "Value at the last node should be 99."
+            "Expected value at the last node to be 99."
         )
 
     def test_insert_at_middle_node(self) -> None:
@@ -335,17 +333,17 @@ class TestLinkedList(unittest.TestCase):
         result: bool = linked_list.insert(1, 99)
         self.assertTrue(
             result,
-            "Inserting at a middle node should return True."
+            "Expected inserting at a middle node to return True."
         )
         self.assertEqual(
             linked_list.get(1).value,
             99,
-            "Value at second node should be 99."
+            "Expected value at second node to be 99."
         )
         self.assertEqual(
             linked_list.get(2).value,
             2,
-            "Value at third node should be 2."
+            "Expected value at third node to be 2."
         )
 
     def test_remove_invalid_index(self) -> None:
@@ -357,8 +355,7 @@ class TestLinkedList(unittest.TestCase):
             result: Node = linked_list.remove(index)
             self.assertIsNone(
                 result,
-                f"Removing at index {index} should return None "
-                "for LinkedList with length 3."
+                f"Expected removing at index {index} to return None for LinkedList with length 3."
             )
 
     def test_remove_first_node(self) -> None:
@@ -369,17 +366,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             result.value,
             1,
-            "Removed value should be 1."
+            "Expected removed value to be 1."
         )
         self.assertEqual(
             linked_list.length,
             2,
-            "Length should be decremented after removing the first node."
+            "Expected length to be decremented after removing the first node."
         )
         self.assertEqual(
             linked_list.get(0).value,
             2,
-            "Value at the first node should be updated."
+            "Expected value at the first node to be updated."
         )
 
     def test_remove_last_node(self) -> None:
@@ -390,17 +387,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             result.value,
             3,
-            "Removed value should be 3."
+            "Expected removed value to be 3."
         )
         self.assertEqual(
             linked_list.length,
             2,
-            "Length should be decremented after removing the last node."
+            "Expected length to be decremented after removing the last node."
         )
         self.assertEqual(
             linked_list.get(1).value,
             2,
-            "Value at the second-to-last node should remain the same."
+            "Expected value at the second-to-last node to remain the same."
         )
 
     def test_remove_middle_node(self) -> None:
@@ -411,17 +408,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             result.value,
             2,
-            "Removed value should be 2."
+            "Expected removed value to be 2."
         )
         self.assertEqual(
             linked_list.length,
             2,
-            "Length should be decremented after removing a middle node."
+            "Expected length to be decremented after removing a middle node."
         )
         self.assertEqual(
             linked_list.get(1).value,
             3,
-            "Value at the second node should be updated."
+            "Expected value at the second node to be updated."
         )
 
     def test_reverse_empty_linked_list(self):
@@ -429,16 +426,16 @@ class TestLinkedList(unittest.TestCase):
         linked_list.reverse()
         self.assertIsNone(
             linked_list.head,
-            "Reversing an empty LinkedList should result in a None head."
+            "Expected reversing an empty LinkedList to result in a None head."
         )
         self.assertIsNone(
             linked_list.tail,
-            "Reversing an empty LinkedList should result in a None tail."
+            "Expected reversing an empty LinkedList to result in a None tail."
         )
         self.assertEqual(
             linked_list.length,
             0,
-            "Length of an empty LinkedList should remain 0 after reversing."
+            "Expected length of an empty LinkedList to remain 0 after reversing."
         )
 
     def test_reverse_one_node_linked_list(self):
@@ -447,19 +444,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.head.value,
             1,
-            "Head value of a LinkedList with one node should remain unchanged."
+            "Expected head value of a LinkedList with one node to remain unchanged."
         )
         self.assertEqual(
             linked_list.tail.value,
             1,
-            "Tail value of a LinkedList with one "
-            "node should remain unchanged."
+            "Expected tail value of a LinkedList with one node to remain unchanged."
         )
         self.assertEqual(
             linked_list.length,
             1,
-            "Length of a LinkedList with one node "
-            "should remain 1 after reversing."
+            "Expected length of a LinkedList with one node to remain 1 after reversing."
         )
 
     def test_reverse_linked_list(self):
@@ -471,20 +466,17 @@ class TestLinkedList(unittest.TestCase):
         self.assertEqual(
             linked_list.head.value,
             3,
-            "Head value should be updated to the last "
-            "node's value after reversing."
+            "Expected head value to be updated to the last node's value after reversing."
         )
         self.assertEqual(
             linked_list.tail.value,
             1,
-            "Tail value should be updated to the first "
-            "node's value after reversing."
+            "Expected tail value to be updated to the first node's value after reversing."
         )
         self.assertEqual(
             linked_list.length,
             3,
-            "Length of a LinkedList with multiple nodes "
-            "should remain unchanged after reversing."
+            "Expected length of a LinkedList with multiple nodes to remain unchanged after reversing."
         )
 
     def test_print_linked_list(self) -> None:
@@ -499,8 +491,11 @@ class TestLinkedList(unittest.TestCase):
                 unittest.mock.call(2),
                 unittest.mock.call(3)
             ]
-            expected_message: str = "Print calls don't match expected calls."
-            assert mock_print.mock_calls == expected_calls, expected_message
+            self.assertEqual(
+                mock_print.mock_calls,
+                expected_calls,
+                "Print calls don't match expected calls."
+            )
 
 
 if __name__ == "__main__":

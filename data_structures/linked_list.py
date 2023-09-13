@@ -74,7 +74,7 @@ class LinkedList:
                 pointer = pointer.next
             return pointer
 
-    def set(self, index: int, value) -> Node:
+    def set_value(self, index: int, value) -> Node:
         pointer: Node = self.get(index)
         if pointer:
             pointer.value = value
